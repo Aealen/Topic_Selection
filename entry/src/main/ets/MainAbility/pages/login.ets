@@ -1,7 +1,8 @@
 
 import BasicLabel from "../common/component/BasicLabel"
 import BasicInput from "../common/component/BasicInput"
-
+import GoRegBtn from "../common/component/LabelBtn"
+import CKBox from "../common/component/CKBox"
 
 
 @Styles function logBtn(){
@@ -9,6 +10,7 @@ import BasicInput from "../common/component/BasicInput"
   .height(48)
   .padding(8)
   .borderRadius(8)
+  .backgroundColor("#ff2ea3d9")
 }
 
 @Styles function roleBtn(){
@@ -29,19 +31,20 @@ struct Login{
   @State role:number=0
   @State username:string=""
   @State password:string=""
+  @State acceptRule:boolean=false
 
 
 
   build(){
     Column(){
-      BasicLabel({
-        labelValue:"账号登陆"
-      })
+        BasicLabel({
+          labelValue:"账号登陆"
+        })
 
       BasicInput({
         placeholder:"请输入学号/工号"
-      ,inputVaule:$username
-      ,inputType:InputType.Normal
+        ,inputVaule:$username
+        ,inputType:InputType.Normal
       })
       BasicInput({
         placeholder:"请输入密码"
@@ -62,7 +65,6 @@ struct Login{
           .borderColor(0==this.role ? "#ff3987be" : "#ffbab3b3")
           .borderWidth(0==this.role?1:0)
 
-
         Button("我是教师",{type:ButtonType.Normal})
           .roleBtn()
           .margin({left:5})
@@ -76,14 +78,22 @@ struct Login{
 
 
       }
-      .margin({top:8,bottom:16})
+      .margin({top:24,bottom:16})
 
       Button("登陆",{type: ButtonType.Normal})
         .logBtn()
         .fontSize(24)
+        .margin({top:16})
 
+      GoRegBtn({showText:"我还没有账号? 快去注册."})
 
-    }.width("90%").margin({left:"5%",right:"5%"})
+      Blank()
+      CKBox({isSel:$acceptRule,showText:"已阅读并同意<<隐私政策>>和<<用户协议>>"})
+
+    }
+    .width("90%")
+    .margin({left:"5%",right:"5%"})
+    .height("100%")
 
   }
 }
